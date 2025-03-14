@@ -1,8 +1,9 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
+    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.devtools.ksp)
+//    id("com.google.devtools.ksp")
 }
 
 android {
@@ -25,22 +26,30 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
 
 dependencies {
+
     implementation(project(":core"))
-    //Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.junit.v113)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.androidx.ui.test.junit4)
+//    testImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.androidx.runner)
 }
