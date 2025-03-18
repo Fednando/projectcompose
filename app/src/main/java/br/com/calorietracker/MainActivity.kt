@@ -1,21 +1,16 @@
 package br.com.calorietracker
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,21 +19,18 @@ import androidx.navigation.navArgument
 import br.com.calorietracker.calculator.CalculatorActivity
 import br.com.calorietracker.navigation.navigate
 import br.com.calorietracker.ui.theme.CaloryTrackerTheme
-import br.com.core.domain.preferences.Preferences
 import br.com.core.navigation.Route
 import br.com.onboarding_presentation.activity.ActivityScreen
 import br.com.onboarding_presentation.age.AgeScreen
 import br.com.onboarding_presentation.gender.GenderScreen
 import br.com.onboarding_presentation.goal.GoalScreen
 import br.com.onboarding_presentation.height.HeightScreen
-import br.com.onboarding_presentation.nutrient.NutrientGoalEvent
 import br.com.onboarding_presentation.nutrient.NutrientScreen
 import br.com.onboarding_presentation.weight.WeightScreen
 import br.com.onboarding_presentation.welcome.WelcomeScreen
 import br.com.tracker_presentation.search.SearchScreen
 import br.com.tracker_presentation.trackeroverview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

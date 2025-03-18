@@ -93,4 +93,5 @@ dependencies {
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.androidx.runner)
+    testImplementation(libs.truth)
 }
