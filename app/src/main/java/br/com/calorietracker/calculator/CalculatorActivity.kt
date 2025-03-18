@@ -20,7 +20,6 @@ class CalculatorActivity : ComponentActivity() {
 
         setContent {
             CaloryTrackerTheme {
-
             }
         }
     }
