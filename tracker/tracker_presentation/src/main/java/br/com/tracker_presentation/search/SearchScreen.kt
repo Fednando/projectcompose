@@ -1,7 +1,5 @@
 package br.com.tracker_presentation.search
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +30,6 @@ import br.com.tracker_presentation.search.components.TrackableFoodItem
 import br.com.tracker_presentation.trackeroverview.components.SpaceHeight
 import java.time.LocalDate
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
@@ -77,8 +74,8 @@ fun SearchScreen(
         SpaceHeight(spacing.spaceMedium)
         SearchTextField(
             text = state.query,
-            onValueChange = {
-                viewModel.onEvent(SearchEvent.OnQueryChange(it))
+            onValueChange = { text, _ ->
+                viewModel.onEvent(SearchEvent.OnQueryChange(text))
             },
             shouldShowHint = state.isHintVisible,
             onSearch = {
@@ -91,7 +88,8 @@ fun SearchScreen(
         )
         SpaceHeight(spacing.spaceMedium)
         LazyColumn(
-            modifier = Modifier.fillMaxSize()) {
+            modifier = Modifier.fillMaxSize()
+        ) {
             items(state.trackableFood) { food ->
                 TrackableFoodItem(
                     trackableFoodUiState = food,
@@ -99,9 +97,11 @@ fun SearchScreen(
                         viewModel.onEvent(SearchEvent.OnToggleTrackableFood(food.food))
                     },
                     onAmountChange = {
-                        viewModel.onEvent(SearchEvent.OnAmountForFoodChange(
-                            food.food, it
-                        ))
+                        viewModel.onEvent(
+                            SearchEvent.OnAmountForFoodChange(
+                                food.food, it
+                            )
+                        )
                     },
                     onTrack = {
                         keyboardController?.hide()

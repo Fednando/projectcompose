@@ -33,7 +33,7 @@ import br.com.core.R
 @Composable
 fun SearchTextField(
     text: String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String, Boolean) -> Unit,
     onSearch: () -> Unit,
     modifier: Modifier = Modifier,
     hint: String = stringResource(id = R.string.search),
@@ -48,7 +48,9 @@ fun SearchTextField(
     ) {
         BasicTextField(
             value = text,
-            onValueChange = onValueChange,
+            onValueChange = {
+                onValueChange(it, it.isNotBlank())
+            },
             singleLine = true,
             keyboardActions = KeyboardActions {
                 onSearch()
@@ -101,7 +103,9 @@ fun SearchTextField(
 fun SearchTextFieldPreview(){
     SearchTextField(
         text = "apple",
-        onValueChange = { },
+        onValueChange = { _, _ ->
+
+        },
         onSearch = { },
         hint = "Search Here",
         onFocusChanged = { }
