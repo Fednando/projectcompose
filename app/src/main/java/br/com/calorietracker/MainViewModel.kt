@@ -12,6 +12,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     preferences: Preferences
 ) : ViewModel() {
+
     private val route = preferences.loadShouldShowOnboarding()
     var state by mutableStateOf(route)
         private set

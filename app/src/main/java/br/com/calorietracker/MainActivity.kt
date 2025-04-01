@@ -1,9 +1,11 @@
 package br.com.calorietracker
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -11,25 +13,21 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import br.com.calorietracker.calculator.CalculatorActivity
-import br.com.calorietracker.navigation.navigate
+import br.com.calorietracker.navigation.boardingGraph.graph.onBoardingGraph
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToActivity
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToAge
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToGender
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToGoal
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToHeight
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToNutrientGoal
+import br.com.calorietracker.navigation.boardingGraph.screen.navigationToWeight
+import br.com.calorietracker.navigation.trackerOverviewGraph.navigationToTrackerOverviewGraph
+import br.com.calorietracker.navigation.trackerOverviewGraph.screen.navigationToSearch
+import br.com.calorietracker.navigation.trackerOverviewGraph.trackerOverviewGraph
 import br.com.calorietracker.ui.theme.CaloryTrackerTheme
 import br.com.core.navigation.Route
-import br.com.onboarding_presentation.activity.ActivityScreen
-import br.com.onboarding_presentation.age.AgeScreen
-import br.com.onboarding_presentation.gender.GenderScreen
-import br.com.onboarding_presentation.goal.GoalScreen
-import br.com.onboarding_presentation.height.HeightScreen
-import br.com.onboarding_presentation.nutrient.NutrientScreen
-import br.com.onboarding_presentation.weight.WeightScreen
-import br.com.onboarding_presentation.welcome.WelcomeScreen
-import br.com.tracker_presentation.search.SearchScreen
-import br.com.tracker_presentation.trackeroverview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +35,7 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,97 +52,46 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = if (shouldShowOnboarding) Route.WELCOME
-                        else Route.TRACKER_OVERVIEW,
+                        startDestination = if (shouldShowOnboarding) Route.ONBOARDING_GRAPH
+                        else Route.TRACKER_OVERVIEW_GRAPH,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable(Route.WELCOME) {
-                            WelcomeScreen(onNavigate = navController::navigate)
-                        }
-                        composable(Route.CALCULATOR) {
-                            startActivity(CalculatorActivity.newIntent(this@MainActivity))
-                        }
-                        composable(Route.AGE) {
-                            AgeScreen(
-                                onNavigate = navController::navigate,
-                                snackBarHostState = snackBarHostState
-                            )
-                        }
-                        composable(Route.GENDER) {
-                            GenderScreen(onNavigate = navController::navigate)
-                        }
-                        composable(Route.HEIGHT) {
-                            HeightScreen(
-                                onNavigate = navController::navigate,
-                                snackBarHostState = snackBarHostState
-                            )
-                        }
-                        composable(Route.WEIGHT) {
-                            WeightScreen(
-                                onNavigate = navController::navigate,
-                                snackBarHostState = snackBarHostState
-                            )
-                        }
-                        composable(Route.NUTRIENT_GOAL) {
-                            NutrientScreen(
-                                onNavigate = navController::navigate,
-                                snackBarHostState = snackBarHostState
-                            )
-                        }
-                        composable(Route.ACTIVITY) {
-                            ActivityScreen(
-                                onNavigate = navController::navigate
-                            )
-                        }
-                        composable(Route.GOAL) {
-                            GoalScreen(
-                                onNavigate = navController::navigate
-                            )
-                        }
-                        composable(
-                            route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
-                            arguments = listOf(
-                                navArgument("mealName") {
-                                    type = NavType.StringType
-                                },
-                                navArgument("dayOfMonth") {
-                                    type = NavType.IntType
-                                },
-                                navArgument("month") {
-                                    type = NavType.IntType
-                                },
-                                navArgument("year") {
-                                    type = NavType.IntType
-                                },
-                            )
-                        ) {
-                            val mealName = it.arguments?.getString("mealName")!!
-                            val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
-                            val month = it.arguments?.getInt("month")!!
-                            val year = it.arguments?.getInt("year")!!
-                            SearchScreen(
-                                snackBarHostState = snackBarHostState,
-                                mealName = mealName,
-                                dayOfMonth = dayOfMonth,
-                                month = month,
-                                year = year,
-                                onNavigateUp = {
-                                    navController.navigateUp()
-                                }
-                            )
-                        }
-                        composable(Route.TRACKER_OVERVIEW) {
-                            TrackerOverviewScreen(
-                                onNavigateToSearch = { mealName, day, month, year ->
-                                    navController.navigate(
-                                        Route.SEARCH + "/$mealName" +
-                                                "/$day" +
-                                                "/$month" +
-                                                "/$year"
-                                    )
-                                }
-                            )
-                        }
+                        onBoardingGraph(
+                            snackBarHostState = snackBarHostState,
+                            onNavigationToGender = {
+                                navController.navigationToGender()
+                            },
+                            onNavigationToAge = {
+                                navController.navigationToAge()
+                            },
+                            onNavigationToHeight = {
+                                navController.navigationToHeight()
+                            },
+                            onNavigationToWeight = {
+                                navController.navigationToWeight()
+                            },
+                            onNavigationToActivity = {
+                                navController.navigationToActivity()
+                            },
+                            onNavigationToGoal = {
+                                navController.navigationToGoal()
+                            },
+                            onNavigationToNutrientGoal = {
+                                navController.navigationToNutrientGoal()
+                            },
+                            onNavigationToTrackerOverview = {
+                                navController.navigationToTrackerOverviewGraph()
+                            }
+                        )
+                        trackerOverviewGraph(
+                            snackBarHostState = snackBarHostState,
+                            onNavigateUp = {
+                                navController.navigateUp()
+                            },
+                            onNavigateToSearch = { mealName, day, month, year ->
+                                navController.navigationToSearch(mealName, day, month, year)
+                            }
+                        )
                     }
                 }
             }

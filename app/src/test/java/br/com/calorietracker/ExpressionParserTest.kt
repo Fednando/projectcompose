@@ -4,7 +4,6 @@ import br.com.calorietracker.calculator.domain.ExpressionParser
 import br.com.calorietracker.calculator.domain.ExpressionPart
 import br.com.calorietracker.calculator.domain.Operation
 import br.com.calorietracker.calculator.domain.ParenthesesType
-import com.google.common.truth.ExpectFailure
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -24,13 +23,13 @@ class ExpressionParserTest {
         // Then
         val expected = listOf(
             ExpressionPart.Number(3.0),
-            ExpressionPart.Operation(Operation.ADD),
+            ExpressionPart.Op(Operation.ADD),
             ExpressionPart.Number(5.0),
-            ExpressionPart.Operation(Operation.SUBTRACT),
+            ExpressionPart.Op(Operation.SUBTRACT),
             ExpressionPart.Number(3.0),
-            ExpressionPart.Operation(Operation.MULTIPLY),
+            ExpressionPart.Op(Operation.MULTIPLY),
             ExpressionPart.Number(4.0),
-            ExpressionPart.Operation(Operation.DIVIDE),
+            ExpressionPart.Op(Operation.DIVIDE),
             ExpressionPart.Number(3.0),
         )
 
@@ -47,10 +46,10 @@ class ExpressionParserTest {
 
         val expected = listOf(
             ExpressionPart.Number(4.0),
-            ExpressionPart.Operation(Operation.SUBTRACT),
+            ExpressionPart.Op(Operation.SUBTRACT),
             ExpressionPart.Parentheses(ParenthesesType.Opening),
             ExpressionPart.Number(4.0),
-            ExpressionPart.Operation(Operation.MULTIPLY),
+            ExpressionPart.Op(Operation.MULTIPLY),
             ExpressionPart.Number(5.0),
             ExpressionPart.Parentheses(ParenthesesType.Closing),
         )

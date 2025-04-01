@@ -40,7 +40,6 @@ class TrackerOverviewViewModel @Inject constructor(
         preferences.saveShouldShowOnboarding(false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun onEvent(event: TrackerOverviewEvent) {
         when(event) {
             is TrackerOverviewEvent.OnAddFoodClick -> {

@@ -1,11 +1,8 @@
 package br.com.tracker_presentation.trackeroverview
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import br.com.tracker_domain.model.TrackedFood
 import java.time.LocalDate
 
-@RequiresApi(Build.VERSION_CODES.O)
 data class TrackerOverviewState constructor(
     val totalCarbs: Int = 0,
     val totalProtein: Int = 0,

@@ -12,5 +12,11 @@ object Route {
 
     const val TRACKER_OVERVIEW = "tracker_overview"
     const val SEARCH = "search"
+    const val ACTIVITY_CALCULATOR = "activity_calculator"
     const val CALCULATOR = "calculator"
+    const val APP_NEW = "app_new"
+
+    const val ONBOARDING_GRAPH = "onboarding_graph"
+    const val TRACKER_OVERVIEW_GRAPH = "tracker_overview_graph"
+
 }

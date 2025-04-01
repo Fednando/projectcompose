@@ -1,0 +1,173 @@
+package br.com.calorietracker.ui.theme
+
+import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import br.com.core.Dimensions
+import br.com.core.LocalSpacing
+import com.plcoding.calorytracker.ui.theme.Shapes
+
+private val DarkColorPalette = darkColorScheme(
+    primary = BrightGreen,
+    primaryContainer = DarkGreen,
+    onPrimaryContainer = White,
+    secondary = Orange,
+    background = MediumGray,
+    onBackground = TextWhite,
+    surface = LightGray,
+    onSurface = TextWhite,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+)
+
+private val LightColorPalette = lightColorScheme(
+    primary = BrightGreen,
+    primaryContainer = DarkGreen,
+    onPrimaryContainer = White,
+    secondary = Orange,
+    background = Color.White,
+    onBackground = DarkGray,
+    surface = Color.White,
+    onSurface = DarkGray,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+)
+
+private val DarkColorPaletteCalculator = darkColorScheme(
+    primary = Green80,
+    onPrimary = Green20,
+    primaryContainer = Green30,
+    onPrimaryContainer = Green90,
+    inversePrimary = Green40,
+    secondary = DarkGreen80,
+    onSecondary = DarkGreen20,
+    secondaryContainer = DarkGreen30,
+    onSecondaryContainer = DarkGreen90,
+    tertiary = Orange80,
+    onTertiary = Orange20,
+    tertiaryContainer = Orange30,
+    onTertiaryContainer = Orange90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = Grey10,
+    onBackground = Grey90,
+    surface = Grey10,
+    onSurface = Grey80,
+    inverseSurface = Grey90,
+    inverseOnSurface = Grey20,
+    surfaceVariant = GreenGrey30,
+    onSurfaceVariant = GreenGrey80,
+    outline = GreenGrey60
+)
+
+private val LightColorPaletteCalculator = lightColorScheme(
+    primary = Green40,
+    onPrimary = Color.White,
+    primaryContainer = Green90,
+    onPrimaryContainer = Green10,
+    inversePrimary = Green80,
+    secondary = DarkGreen40,
+    onSecondary = Color.White,
+    secondaryContainer = DarkGreen90,
+    onSecondaryContainer = DarkGreen10,
+    tertiary = Orange40,
+    onTertiary = Color.White,
+    tertiaryContainer = Orange90,
+    onTertiaryContainer = Orange10,
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = Grey99,
+    onBackground = Grey10,
+    surface = Grey99,
+    onSurface = Grey10,
+    inverseSurface = Grey20,
+    inverseOnSurface = Grey95,
+    surfaceVariant = GreenGrey90,
+    onSurfaceVariant = GreenGrey30,
+    outline = GreenGrey50
+)
+
+private val DarkColorSchemeAppNew = darkColorScheme(
+    background = Black,
+    primary = Blue,
+    error = DarkRed,
+    surface = LightBlack
+)
+
+private val LightColorSchemeAppNew = lightColorScheme(
+    background = Color.White,
+    primary = Blue,
+    error = LightRed,
+    surface = Color.White
+)
+
+@Composable
+fun CaloryTrackerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+    val colors = if (darkTheme) {
+        DarkColorPalette
+    } else {
+        LightColorPalette
+    }
+    CompositionLocalProvider(LocalSpacing provides Dimensions()) {
+        MaterialTheme(
+            colorScheme = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
+}
+
+@Composable
+fun MaterialCalculatorTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colors = when {
+        useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkColorPalette
+        else -> LightColorPalette
+    }
+
+    MaterialTheme(
+        colorScheme = colors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}
+
+@Composable
+fun MaterialAppNewTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colors = when {
+        useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkColorSchemeAppNew
+        else -> LightColorSchemeAppNew
+    }
+
+    MaterialTheme(
+        colorScheme = colors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}

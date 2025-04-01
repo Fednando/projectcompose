@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("dagger.hilt.android.plugin")
     alias(libs.plugins.devtools.ksp)
-    //id("com.google.devtools.ksp")
 }
 
 android {
@@ -40,6 +39,7 @@ android {
 
 
 dependencies {
+
 
     implementation(project(":core"))
     implementation(project(":core-ui"))
