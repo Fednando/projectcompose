@@ -27,7 +27,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".calculator.CalculatorActivity"
+            android:name="br.com.onboarding_presentation.feature.calculator.CalculatorActivity"
+            android:theme="@style/Theme.CalorieTracker" />
+        <activity
+            android:name="br.com.onboarding_presentation.feature.appNew.AppNewActivity"
             android:theme="@style/Theme.CalorieTracker" />
     </application>
 

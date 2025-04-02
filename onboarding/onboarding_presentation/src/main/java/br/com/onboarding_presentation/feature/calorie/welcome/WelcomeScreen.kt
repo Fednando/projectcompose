@@ -14,11 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import br.com.calorietracker.calculator.CalculatorActivity
+import br.com.onboarding_presentation.feature.calculator.CalculatorActivity
 import br.com.core.LocalSpacing
 import br.com.core.R
-import br.com.core.navigation.Route
-import br.com.core.util.UiEvent
+import br.com.onboarding_presentation.feature.appNew.AppNewActivity
 import br.com.onboarding_presentation.feature.calorie.components.ActionButton
 
 @Composable
@@ -50,9 +49,18 @@ fun WelcomeScreen(
         )
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
         ActionButton(
-            text = stringResource(id = R.string.next),
+            text = stringResource(id = R.string.calculator),
             onClick = {
                 context.startActivity(CalculatorActivity.newIntent(context))
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            isEnabled = true
+        )
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+        ActionButton(
+            text = stringResource(id = R.string.app_news),
+            onClick = {
+                context.startActivity(AppNewActivity.newIntent(context))
             },
             modifier = Modifier.align(Alignment.CenterHorizontally),
             isEnabled = true

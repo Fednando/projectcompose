@@ -99,6 +99,20 @@ private val LightColorPaletteCalculator = lightColorScheme(
     outline = GreenGrey50
 )
 
+private val DarkColorSchemeAppNew = darkColorScheme(
+    background = Black,
+    primary = Blue,
+    error = DarkRed,
+    surface = LightBlack
+)
+
+private val LightColorSchemeAppNew = lightColorScheme(
+    background = Color.White,
+    primary = Blue,
+    error = LightRed,
+    surface = Color.White
+)
+
 @Composable
 fun CaloryTrackerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = if (darkTheme) {
@@ -127,6 +141,27 @@ fun MaterialCalculatorTheme(
         useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
         darkTheme -> DarkColorPalette
         else -> LightColorPalette
+    }
+
+    MaterialTheme(
+        colorScheme = colors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}
+
+@Composable
+fun MaterialAppNew(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colors = when {
+        useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkColorSchemeAppNew
+        else -> LightColorSchemeAppNew
     }
 
     MaterialTheme(

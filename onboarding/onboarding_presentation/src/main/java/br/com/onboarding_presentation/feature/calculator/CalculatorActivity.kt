@@ -1,4 +1,4 @@
-package br.com.calorietracker.calculator
+package br.com.onboarding_presentation.feature.calculator
 
 import android.content.Context
 import android.content.Intent

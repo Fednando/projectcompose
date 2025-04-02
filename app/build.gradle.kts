@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":tracker:tracker_data"))
     implementation(project(":tracker:tracker_domain"))
 
+
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.activity:activity-ktx:1.9.2")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

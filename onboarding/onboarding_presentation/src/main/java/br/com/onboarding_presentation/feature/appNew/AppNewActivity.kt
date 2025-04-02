@@ -17,14 +17,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.calorietracker.ui.theme.MaterialAppNewTheme
 import br.com.core.navigation.Route
+import br.com.onboarding_presentation.feature.appNew.presentaion.onboarding.OnboardingScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AppNewActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         setContent {
             MaterialAppNewTheme {
                 val navController = rememberNavController()
@@ -36,11 +36,11 @@ class AppNewActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = Route.CALCULATOR,
+                        startDestination = Route.APP_NEW,
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(Route.APP_NEW) {
-
+                            OnboardingScreen()
                         }
                     }
                 }
