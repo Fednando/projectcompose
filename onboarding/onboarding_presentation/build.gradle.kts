@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.savedstate.ktx)
 
+    implementation(libs.accompanist.systemuicontroller)
+
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
 

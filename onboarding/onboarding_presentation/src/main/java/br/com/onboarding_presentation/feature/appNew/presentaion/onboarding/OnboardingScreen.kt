@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -19,17 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.core.LocalSpacing
+import br.com.onboarding_presentation.feature.appNew.presentaion.common.NewTextButton
 import br.com.onboarding_presentation.feature.appNew.presentaion.common.NewsButton
 import br.com.onboarding_presentation.feature.appNew.presentaion.onboarding.components.OnboardingPage
 import br.com.onboarding_presentation.feature.appNew.presentaion.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen() {
 
-    val pageState = rememberPagerState(initialPage = 0)
+    val pageState = rememberPagerState(initialPage = 0, pageCount = { 3 })
     val spacing = LocalSpacing.current
 
     Column(
@@ -47,7 +48,7 @@ fun OnboardingScreen() {
             }
         }
 
-        HorizontalPager(pageCount = 3, state = pageState) { pageIndex ->
+        HorizontalPager(state = pageState) { pageIndex ->
             OnboardingPage(page = pages[pageIndex])
         }
 
@@ -55,7 +56,8 @@ fun OnboardingScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = spacing.spaceMedium),
+                .padding(horizontal = spacing.spaceMediumLarge)
+                .navigationBarsPadding(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,10 +67,11 @@ fun OnboardingScreen() {
                 selectedPage = pageState.currentPage
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically
+            ) {
                 val scope = rememberCoroutineScope()
                 if (buttonState.value[0].isNotEmpty()) {
-                    NewsButton(
+                    NewTextButton(
                         text = buttonState.value[0],
                         onClick = {
                             scope.launch {
@@ -79,9 +82,23 @@ fun OnboardingScreen() {
                         }
                     )
                 }
+                NewsButton(
+                    text = buttonState.value[1],
+                    onClick = {
+                        scope.launch {
+                            if(pageState.currentPage == 3){
+
+                            } else {
+                                pageState.animateScrollToPage(
+                                    page = pageState.currentPage + 1
+                                )
+                            }
+                        }
+                    }
+                )
             }
         }
-
+        Spacer(modifier = Modifier.weight(0.2f))
     }
 }
 
