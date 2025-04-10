@@ -1,4 +1,4 @@
-package br.com.calorietracker.ui.theme
+package br.com.design_system.foundation
 
 import androidx.compose.ui.graphics.Color
 

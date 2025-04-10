@@ -1,4 +1,4 @@
-package br.com.calorietracker.ui.theme
+package br.com.design_system.foundation
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

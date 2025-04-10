@@ -1,4 +1,4 @@
-package br.com.calorietracker.ui.theme
+package br.com.design_system.foundation
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import br.com.core.Dimensions
 import br.com.core.LocalSpacing
-import com.plcoding.calorytracker.ui.theme.Shapes
 
 private val DarkColorPalette = darkColorScheme(
     primary = BrightGreen,

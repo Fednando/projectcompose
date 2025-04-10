@@ -34,10 +34,15 @@ android {
 
 dependencies {
 
+    implementation(project(":core-ui"))
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit.v113)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.ui.graphics)
+    implementation(libs.material3)
+    implementation(platform(libs.compose.bom))
 }
